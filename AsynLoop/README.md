@@ -5,7 +5,7 @@ Giả sử bạn cần đọc danh sách tất cả các thư mục con ngoại 
 Đoạn code cơ bản như sau:
 code 
 var http = require("http"), fs = require("fs");
-```javascript
+`<addr>`
 function load_albums_list(callback) {
 	fs.readdir(
 		"albums",
@@ -29,7 +29,7 @@ function load_albums_list(callback) {
 		}
 	);
 }
-```
+`</addr>`
 Output sẽ như sau: {"error":null,"data":{"albums":[]}}
 
 Điều gì đã xảy ra ?
@@ -40,7 +40,7 @@ vấn đề nằm ở chỗ vòng lặp for. Vòng lặp và hàm asynchronous c
 3. Sau khi tất cả các hàm nonblocking này vừa bắt đầu, chúng thoát khỏi vòng lặp và gọi hàm callback. Bởi vì Node.js là single-thread, các fs.stat vẫn chưa đựợc thực thi và gọi hàm callback, vì thế only_dirs vẫn chưa có phần tử nào. 
 
 Để giải quyết được vấn đề này, ta phải dùng đến đệ qui
-```javascript
+`<addr>`
 function iterator(i) {
 	if(i<array.length) {
 		async_work(function(){
@@ -50,4 +50,4 @@ function iterator(i) {
 		callback(results);
 	}
 }
-```
+`</addr>`
